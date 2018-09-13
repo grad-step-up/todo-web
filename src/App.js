@@ -1,32 +1,25 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import './App.css';
-import {Button} from "react-bootstrap";
+import {SearchBar, ToDoList} from "./todo";
+import {Tab, Tabs} from "react-bootstrap";
+import ToDoStatistic from "./todo/stats/Statistic";
 
-
-
-class App extends Component {
-
-
-
+class App extends PureComponent {
     render() {
-        this.setState({isDetail: true});
+        return (
 
-        const DetailPage = (props) => {
-            return <Button detail={props.product}/>
-        };
-        const ListPage = (props) => {
-            return <div>detail</div>
-        };
-
-        if(this.state.isDetail) {
-            return (
-                <DetailPage detail={this.state.products[0]}/>
-            );
-        }else {
-            return (
-                <ListPage products={this.state.products}/>
-            );
-        }
+            <div>
+                <Tabs defaultActiveKey="todos" id="todo-tab">
+                    <SearchBar/>
+                    <Tab eventKey="todos" title="ToDos">
+                        <ToDoList/>
+                    </Tab>
+                    <Tab eventKey="stats" title="Statistic">
+                        <ToDoStatistic/>
+                    </Tab>
+                </Tabs>
+            </div>
+        );
     }
 }
 

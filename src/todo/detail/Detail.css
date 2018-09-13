@@ -1,0 +1,13 @@
+.detail-label {
+    width: 90px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+.inline-next + div {
+    display: inline-block;
+}
+
+.status-selector {
+    width: 173px;
+    display: inline-block;
+}

@@ -3,9 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "lodash": "^4.17.11",
+    "moment": "^2.22.2",
     "react": "^16.5.0",
+    "react-datepicker": "^1.6.0",
     "react-dom": "^16.5.0",
-    "react-scripts": "1.1.5"
+    "react-moment": "^0.7.9",
+    "react-scripts": "1.1.5",
+    "react-select": "^2.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -18,6 +23,7 @@
     "react-calendar": "^2.17.2",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
+    "react-svg-piechart": "^2.1.1",
     "redux": "^4.0.0"
   }
 }

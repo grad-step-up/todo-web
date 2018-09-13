@@ -1,0 +1,31 @@
+.stat-chart {
+    display: block;
+    width: 300px;
+    height: 300px;
+}
+
+.indicator > div {
+    display: inline-block;
+}
+
+.indicator > .indicator-icon:not(:first-child) {
+    margin-left: 40px;
+}
+
+.indicator-icon {
+    width: 12px;
+    height: 12px;
+}
+
+.in-progress {
+    fill: #1c8f64;
+    background-color: #1c8f64;
+}
+
+.blocked {
+    background-color: #ce4908;
+}
+
+.todo {
+    background-color: #615aa4;
+}
