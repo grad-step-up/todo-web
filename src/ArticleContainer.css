@@ -1,0 +1,51 @@
+.article .container {
+    height: 600px;
+}
+
+.article .table .header {
+    colspan: 2;
+}
+.article .table th {
+    border: 1px solid;
+}
+.article .table td {
+    border: 1px solid;
+}
+
+.content-container {
+    height: 200px;
+    overflow-y: auto;
+}
+.content-border {
+    border: 1px solid;
+}
+.vertical-center {
+    left: 50%;
+    margin-left: 50%;
+}
+
+.content {
+    height: 100%;
+}
+
+.article .contents{
+    /*font-size: 24px;*/
+    height: 100%;
+}
+.article .contents.scroll{
+    overflow-y: auto;
+}
+
+.article .title {
+    /*font-size: 32px;*/
+}
+
+.hidden {
+    display: none;
+}
+
+.center {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
