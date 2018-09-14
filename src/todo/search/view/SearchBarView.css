@@ -1,0 +1,16 @@
+.date-criteria {
+    padding: 30px 0;
+}
+
+.date-criteria-container {
+    border: 1px solid;
+}
+
+.date-date-criteria-label {
+    margin-left: 20px;
+    display: inline-block;
+}
+.date-date-criteria-label + div {
+    margin: auto;
+    display: inline-block;
+}

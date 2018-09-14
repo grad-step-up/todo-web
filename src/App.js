@@ -8,7 +8,7 @@ class App extends PureComponent {
     render() {
         return (
 
-            <div>
+            <div className="center scale-60">
                 <Tabs defaultActiveKey="todos" id="todo-tab">
                     <SearchBar/>
                     <Tab eventKey="todos" title="ToDos">

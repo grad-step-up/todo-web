@@ -4,6 +4,7 @@ import PieChart from "react-svg-piechart"
 import './Statistic.css';
 import _ from "lodash";
 import moment from "moment"
+import {ToDoStore} from "../store/ToDoStore";
 
 const mapStateToProps = state => {
     return {
@@ -28,11 +29,6 @@ const ToDoStatistic = ({todos, criteria}) => {
         value: 1,
         color: color["Unavailable"]
     });
-
-    function matchedTodos() {
-        return !criteria ? todos : todos.filter(todo => todo.tags.some(tag => tag.includes(criteria)));
-    }
-
 
     function withDefault(value) {
         return value.length ? value : [unavailableData];
@@ -65,8 +61,10 @@ const ToDoStatistic = ({todos, criteria}) => {
         })).value());
     }
 
+    const matchedTodos = ToDoStore.matchedTodos(todos, criteria);
+
     return (
-        <div>
+        <div className="center">
             <div className="indicator">
                 <div className="indicator-icon in-progress"/>
                 <div>In Progress</div>
@@ -77,7 +75,7 @@ const ToDoStatistic = ({todos, criteria}) => {
             </div>
             <div className="stat-chart">
                 <PieChart
-                    data={statByStatus(matchedTodos())}
+                    data={statByStatus(matchedTodos)}
                     // If you need expand on hover (or touch) effect
                     expandOnHover
                 />
@@ -93,7 +91,7 @@ const ToDoStatistic = ({todos, criteria}) => {
             </div>
             <div className="stat-chart">
                 <PieChart
-                    data={statByDueDate(matchedTodos())}
+                    data={statByDueDate(matchedTodos)}
                     // If you need expand on hover (or touch) effect
                     expandOnHover
                 />

@@ -4,28 +4,43 @@ import {connect} from "react-redux";
 import "./List.css"
 import ToDoDetail from "../detail/Detail.js"
 import {Actions} from "../action/actions";
-import _ from "lodash"
+import {ToDoStore} from "../store/ToDoStore";
+import Glyphicon from "react-bootstrap/es/Glyphicon";
+import {ToDoSortColumn, ToDoSortOrder} from "../store/constants";
+
 const mapStateToProps = state => {
     return {
         criteria: state.criteria,
-        todos: state.todos
+        todos: state.todos,
+        sorting: state.sorting
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         onShowDetail: (todo) => {
-            dispatch(Actions.toggleDetail(true, _.clone(todo)));
+            dispatch(Actions.toggleDetail(true, {...todo}));
         },
         onDelete: (id) => {
             dispatch(Actions.deleteToDo(id));
+        },
+        onSort: (column) => {
+            dispatch(Actions.sortBy(column));
         }
     };
 };
 
-const ToDoList = ({todos, criteria, onShowDetail,onDelete}) => {
-    function matchedTodos() {
-        return !criteria ? todos : todos.filter(todo => todo.tags.some(tag => tag.includes(criteria)));
+const ToDoList = ({todos, criteria, sorting, onShowDetail, onDelete, onSort}) => {
+    const matchedTodos = ToDoStore.matchedTodos(todos, criteria, sorting);
+
+    function getOrderIcon(column, sorting) {
+        if (column !== sorting.column || sorting.order === ToDoSortOrder.None) {
+            return "sort";
+        } else if (sorting.order === ToDoSortOrder.Ascending) {
+            return "triangle-top";
+        } else {
+            return "triangle-bottom";
+        }
     }
 
     return (
@@ -33,16 +48,28 @@ const ToDoList = ({todos, criteria, onShowDetail,onDelete}) => {
             <Table>
                 <thead>
                 <tr>
-                    <th>Action</th>
-                    <th>Tags</th>
-                    <th>Due Date</th>
-                    <th>Status</th>
+                    <th onClick={() => onSort(ToDoSortColumn.Action)}>
+                        <Glyphicon glyph={getOrderIcon(ToDoSortColumn.Action, sorting)}/>
+                        Action
+                    </th>
+                    <th onClick={() => onSort(ToDoSortColumn.Tags)}>
+                        <Glyphicon glyph={getOrderIcon(ToDoSortColumn.Tags, sorting)}/>
+                        Tags
+                    </th>
+                    <th onClick={() => onSort(ToDoSortColumn.DueDate)}>
+                        <Glyphicon glyph={getOrderIcon(ToDoSortColumn.DueDate, sorting)}/>
+                        Due Date
+                    </th>
+                    <th onClick={() => onSort(ToDoSortColumn.Status)}>
+                        <Glyphicon glyph={getOrderIcon(ToDoSortColumn.Status, sorting)}/>
+                        Status
+                    </th>
                     <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 {
-                    matchedTodos()
+                    matchedTodos
                         .map(todo => <tr key={todo.id}>
                             <th>{todo.action}</th>
                             <th>{todo.tags.map(tag => <Label className="tag" key={tag}>{tag}</Label>)}</th>
@@ -56,6 +83,9 @@ const ToDoList = ({todos, criteria, onShowDetail,onDelete}) => {
                 }
                 </tbody>
             </Table>
+            <div>
+                <Button className="add-button" onClick={onShowDetail.bind(this, ToDoStore.createNewToDo())}>+</Button>
+            </div>
             <ToDoDetail/>
         </div>
     );
